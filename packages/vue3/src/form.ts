@@ -10,58 +10,18 @@ import {
   VisitOptions,
 } from '@inertiajs/core'
 import { isEqual } from 'lodash-es'
-import {
-  computed,
-  defineComponent,
-  DefineComponent,
-  h,
-  onBeforeUnmount,
-  onMounted,
-  PropType,
-  ref,
-  SlotsType,
-} from 'vue'
+import { computed, defineComponent, h, onBeforeUnmount, onMounted, PropType, ref, SlotsType } from 'vue'
 import useForm from './useForm'
 
-// type DefineComponent<
-//   PropsOrPropOptions = {},
-//   RawBindings = {},
-//   D = {},
-//   C extends ComputedOptions = ComputedOptions,
-//   M extends MethodOptions = MethodOptions,
-//   Mixin extends ComponentOptionsMixin = ComponentOptionsMixin,
-//   Extends extends ComponentOptionsMixin = ComponentOptionsMixin,
-//   E extends EmitsOptions = {},
-//   EE extends string = string,
-//   PP = PublicProps,
-//   Props = ResolveProps<PropsOrPropOptions, E>,
-//   Defaults = ExtractDefaultPropTypes<PropsOrPropOptions>,
-//   S extends SlotsType = {}
-// >;
-
-type InertiaForm = DefineComponent<
-  FormComponentProps,
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  string,
-  FormComponentProps,
-  {},
-  {},
-  SlotsType<{
-    default: (props: FormComponentSlotProps) => any
-  }>
->
 type FormSubmitOptions = Omit<VisitOptions, 'data' | 'onPrefetched' | 'onPrefetching'>
 
 const noop = () => undefined
 
-const Form: InertiaForm = defineComponent({
+const Form = defineComponent({
   name: 'Form',
+  slots: Object as SlotsType<{
+    default: (props: FormComponentSlotProps) => any
+  }>,
   props: {
     action: {
       type: [String, Object] as PropType<FormComponentProps['action']>,
