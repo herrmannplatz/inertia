@@ -73,7 +73,7 @@ const errorBag = ref('custom-bag')
           }}</span>
         </div>
         <div v-if="progress">
-          progress: <span class="font-mono text-blue-600">{{ Math.round(progress.percentage) }}%</span>
+          progress: <span class="font-mono text-blue-600">{{ Math.round(progress.percentage ?? 0) }}%</span>
         </div>
       </div>
     </div>
