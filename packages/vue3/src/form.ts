@@ -10,18 +10,47 @@ import {
   VisitOptions,
 } from '@inertiajs/core'
 import { isEqual } from 'lodash-es'
-import { computed, defineComponent, h, onBeforeUnmount, onMounted, PropType, ref, SlotsType } from 'vue'
+import {
+  ComponentOptionsMixin,
+  computed,
+  defineComponent,
+  DefineComponent,
+  h,
+  onBeforeUnmount,
+  onMounted,
+  PropType,
+  PublicProps,
+  ref,
+  RendererElement,
+  RendererNode,
+  SlotsType,
+  VNode,
+} from 'vue'
 import useForm from './useForm'
 
+type InertiaForm = DefineComponent<
+  FormComponentProps,
+  () => VNode<RendererNode, RendererElement, { [key: string]: any }>,
+  {},
+  {},
+  {},
+  ComponentOptionsMixin,
+  ComponentOptionsMixin,
+  {},
+  string,
+  PublicProps,
+  Readonly<FormComponentProps>,
+  {}, // ExtractDefaultPropTypes<FormComponentProps>, <- cannot infer the defaults from the rops type
+  SlotsType<{
+    default: (props: FormComponentSlotProps) => any
+  }>
+>
 type FormSubmitOptions = Omit<VisitOptions, 'data' | 'onPrefetched' | 'onPrefetching'>
 
 const noop = () => undefined
 
-const Form = defineComponent({
+const Form: InertiaForm = defineComponent({
   name: 'Form',
-  slots: Object as SlotsType<{
-    default: (props: FormComponentSlotProps) => any
-  }>,
   props: {
     action: {
       type: [String, Object] as PropType<FormComponentProps['action']>,
